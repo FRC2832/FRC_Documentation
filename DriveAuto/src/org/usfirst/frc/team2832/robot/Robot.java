@@ -4,9 +4,9 @@ package org.usfirst.frc.team2832.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.usfirst.frc.team2832.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team2832.robot.subsystems.GyroSub;
 import org.usfirst.frc.team2832.robot.subsystems.SmartDashboardSub;
 import org.usfirst.frc.team2832.robot.subsystems.Vision;
 
@@ -22,6 +22,7 @@ public class Robot extends IterativeRobot {
 	public static DriveTrain DriveTrain;
 	public static SmartDashboardSub SmartDashboard;
 	public static Vision Vision;
+	public static GyroSub Gyro;
 	
 	public static XboxController DriveController;
 
@@ -35,8 +36,9 @@ public class Robot extends IterativeRobot {
 		
 		//initialize our subsystems
 		DriveTrain = new DriveTrain();
-		SmartDashboard = new SmartDashboardSub();
 		Vision = new Vision();
+		Gyro = new GyroSub();
+		SmartDashboard = new SmartDashboardSub();
 	}
 
 	/**
@@ -90,13 +92,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		LiveWindow.run();
 	}
 	
 	@Override
 	public void robotPeriodic() {
-		//these subsystem calls are temp code for WpiLib 2017 to simulate periodic calls 
-		DriveTrain.periodic();
-		Robot.SmartDashboard.periodic();
+
 	}
 }

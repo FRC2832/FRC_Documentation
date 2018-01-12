@@ -2,7 +2,6 @@ package org.usfirst.frc.team2832.robot.dummy;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.GyroBase;
-import edu.wpi.first.wpilibj.tables.ITable;
 
 public class DummyGyro extends GyroBase {
 	private double angle = 0;
@@ -48,26 +47,5 @@ public class DummyGyro extends GyroBase {
 	@Override
 	public void reset() {
 		angle = 0;
-	}
-	
-	private ITable m_table;
-
-	@Override
-	public void initTable(ITable subtable) {
-	    m_table = subtable;
-	    updateTable();
-	}
-
-	@Override
-	public ITable getTable() {
-	    return m_table;
-	}
-
-	@Override
-	public void updateTable() {
-	    if (m_table != null) {
-	        m_table.putNumber("Speed", getRate());
-	        m_table.putNumber("Angle", getAngle());
-	    }
 	}
 }

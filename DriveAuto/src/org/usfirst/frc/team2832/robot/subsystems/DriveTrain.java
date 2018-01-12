@@ -7,16 +7,15 @@ import org.usfirst.frc.team2832.robot.dummy.ServoSpeedController;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GyroBase;
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
  *
  */
 public class DriveTrain extends Subsystem {
-	private RobotDrive drive;
+	private DifferentialDrive drive;
 	private SpeedController leftDrive;
 	private SpeedController rightDrive;
 	private Encoder driveEncoder;
@@ -26,7 +25,7 @@ public class DriveTrain extends Subsystem {
 		//initialize the speed controllers and drive train, numbers are PWM channels that the speed controllers are plugged in
 		leftDrive = new ServoSpeedController(0);
 		rightDrive = new ServoSpeedController(1);
-		drive = new RobotDrive(leftDrive, rightDrive);
+		drive = new DifferentialDrive(leftDrive, rightDrive);
 		
 		//setup encoder
 		driveEncoder = new DummyEncoder(0,1);  //numbers are DIO pins used for encoders (note, dummy ignores the pins)
@@ -34,11 +33,6 @@ public class DriveTrain extends Subsystem {
 		
 		//setup gyro
 		gyro = new DummyGyro();
-		
-		//add debugging capibilities for the motors (in test mode)
-		LiveWindow.addActuator("DriveTrain", "Left", (ServoSpeedController)leftDrive);
-		LiveWindow.addActuator("DriveTrain", "Right", (ServoSpeedController)rightDrive);
-		LiveWindow.addSensor("DriveTrain", "Encoder", driveEncoder);
 	}
 	
 	public void arcadeDrive(double speed, double turn) {

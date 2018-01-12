@@ -40,6 +40,8 @@ public class SmartDashboardSub extends Subsystem{
 		SmartDashboard.putNumber("Gyro", Robot.DriveTrain.getGyroAngle());
 		SmartDashboard.putNumber("Vision X", Robot.Vision.getTargetX());
 		SmartDashboard.putNumber("Vision Y", Robot.Vision.getTargetY());
+		
+		SmartDashboard.putNumber("Pigeon Yaw", Robot.Gyro.getYaw());
 	}
 	
 	public Command getAutoCommand() {

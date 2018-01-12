@@ -2,7 +2,6 @@ package org.usfirst.frc.team2832.robot.dummy;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.tables.ITable;
 
 public class DummyEncoder extends Encoder {
 	private double counts = 0;
@@ -57,28 +56,5 @@ public class DummyEncoder extends Encoder {
 	@Override
 	public void reset() {
 		counts = 0;
-	}
-	
-	private ITable m_table;
-
-	@Override
-	public void initTable(ITable subtable) {
-	    m_table = subtable;
-	    updateTable();
-	}
-
-	@Override
-	public ITable getTable() {
-	    return m_table;
-	}
-
-	@Override
-	public void updateTable() {
-	    if (m_table != null) {
-	        m_table.putNumber("Speed", getRate());
-	        m_table.putNumber("Distance", getDistance());
-	        m_table.putNumber("Pulses", counts);
-	        //m_table.putNumber("Distance per Tick", EncoderJNI.getEncoderDistancePerPulse(m_encoder));
-	    }
 	}
 }
