@@ -39,11 +39,8 @@ public class Simulate {
     private NetworkTableEntry leftSpeedEntry;
     private NetworkTableEntry rightSpeedEntry;
 
-    public Simulate(TimedRobot robot, ADXRS450_Gyro gyro, Encoder leftEncoder, Encoder rightEncoder, XboxController cont) {
+    public Simulate(TimedRobot robot, XboxController cont) {
         this.robot = robot;
-        this.gyro = gyro;
-        this.leftEncoder = leftEncoder;
-        this.rightEncoder = rightEncoder;
         this.cont = cont;
     }
 
@@ -63,6 +60,14 @@ public class Simulate {
         new XboxControllerSim(cont);
         driveSim = DifferentialDrivetrainSim.createKitbotSim(KitbotMotor.kDualCIMPerSide, KitbotGearing.k10p71,
                 KitbotWheelSize.EightInch, null);
+
+    }
+
+    public void RegisterDrivetrain(ADXRS450_Gyro gyro, Encoder leftEncoder, Encoder rightEncoder) {
+        this.gyro = gyro;
+        this.leftEncoder = leftEncoder;
+        this.rightEncoder = rightEncoder;
+        
         gyroSim = new ADXRS450_GyroSim(gyro);
         leftEncoderSim = new EncoderSim(leftEncoder);
         rightEncoderSim = new EncoderSim(rightEncoder);

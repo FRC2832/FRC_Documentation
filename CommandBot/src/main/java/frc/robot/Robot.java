@@ -4,8 +4,9 @@
 
 package frc.robot;
 
+import frc.robot.Drivetrain.*;
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -17,16 +18,11 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 public class Robot extends TimedRobot {
 
     // robot parts
-    private VictorSP leftDrive;
-    private VictorSP rightDrive;
-    private DifferentialDrive drive;
     private XboxController driverCont;
-    private ADXRS450_Gyro gyro;
-    private Encoder leftEncoder;
-    private Encoder rightEncoder;
 
     // robot features
     private Simulate sim;
+    private Drivetrain drive;
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -35,18 +31,13 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         // initialize robot parts and locations where they are
-        leftDrive = new VictorSP(1);                //left drive motor is connected to VictorSP on PWM channel 1
-        rightDrive = new VictorSP(2);               //right drive motor is connected to VictorSP on PWM channel 2
-        drive = new DifferentialDrive(leftDrive, rightDrive);   //combine the 2 motors into a drivetrain
         driverCont = new XboxController(0);         //XboxController plugged into Joystick port 0 on the driver station
-        gyro = new ADXRS450_Gyro();                 //Kit Gyro plugged into the SPI port on the top right (traditionally we use a Pigeon IMU on a TalonSRX)
-        leftEncoder = new Encoder(1, 2);            //Encoder for the left axle plugged into DIO 1 and 2 (traditionally we use the TalonSRX IO port)
-        rightEncoder = new Encoder(3, 4);           //Encoder for the right axle plugged into DIO 1 and 2 (traditionally we use the TalonSRX IO port)
-        leftEncoder.setDistancePerPulse(0.01);      //set to 1 meter / x pulses, need to measure on robot
-        rightEncoder.setDistancePerPulse(0.01);     //set to 1 meter / x pulses, need to measure on robot
 
         // initialize robot features
-        sim = new Simulate(this, gyro, leftEncoder, rightEncoder, driverCont);
+        sim = new Simulate(this, driverCont);
+        drive = new Drivetrain(sim);
+
+        drive.setDefaultCommand(new DriveStick(drive, driverCont));
     }
 
     /**
@@ -56,6 +47,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
+        CommandScheduler.getInstance().run();
     }
 
     /* Where to initialize simulation objects */
