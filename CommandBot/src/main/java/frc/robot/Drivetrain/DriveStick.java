@@ -3,10 +3,18 @@ package frc.robot.Drivetrain;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+/**
+ * Drive the robot with joysticks 
+ */
 public class DriveStick extends CommandBase {
     private Drivetrain drive;
     private XboxController cont;
 
+    /**
+     * Inject the drivetain and controller to use
+     * @param drive Drivetrain to command
+     * @param cont Controller to read from
+     */
     public DriveStick(Drivetrain drive, XboxController cont) {
         this.drive = drive;
         this.cont = cont;
@@ -24,7 +32,10 @@ public class DriveStick extends CommandBase {
     }
 
     @Override
-    public boolean isFinished() {return false;}
+    public boolean isFinished() {
+        //never end
+        return false;
+    }
 
     @Override
     public void end(boolean interrupted) {}
