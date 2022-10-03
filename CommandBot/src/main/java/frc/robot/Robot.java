@@ -8,6 +8,7 @@ import frc.robot.Drivetrain.*;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -55,18 +56,6 @@ public class Robot extends TimedRobot {
         schedule.run();
     }
 
-    /* Where to initialize simulation objects */
-    @Override
-    public void simulationInit() {
-        sim.Init();
-    }
-
-    /* where to map simulation physics, like drive commands to encoder counts */
-    @Override
-    public void simulationPeriodic() {
-        sim.Periodic();
-    }
-
     /** This function is called once when autonomous is enabled. */
     @Override
     public void autonomousInit() {
@@ -77,10 +66,8 @@ public class Robot extends TimedRobot {
         SequentialCommandGroup commands = new SequentialCommandGroup(
             //drive forward 2 sec, turn right, forward 2 sec, left, drive 1 sec
             new TimedDrive(drive, 2),
-            new TimedTurn(drive, true),
-            new TimedDrive(drive, 2),
-            new TimedTurn(drive, false),
-            new TimedDrive(drive, 1)
+            new WaitCommand(1.5),
+            new TimedDrive(drive, 2)
         );
 
         //schedule this command for our autonomous
@@ -123,5 +110,17 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during test mode. */
     @Override
     public void testPeriodic() {
+    }
+
+    /* Where to initialize simulation objects */
+    @Override
+    public void simulationInit() {
+        sim.Init();
+    }
+
+    /* where to map simulation physics, like drive commands to encoder counts */
+    @Override
+    public void simulationPeriodic() {
+        sim.Periodic();
     }
 }

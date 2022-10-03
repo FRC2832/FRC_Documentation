@@ -3,7 +3,7 @@ package frc.robot.Drivetrain;
 import frc.robot.*;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -65,4 +65,6 @@ public class Drivetrain extends SubsystemBase {
     public double getAngle() {
         return gyro.getAngle();
     }
+
+    
 }
